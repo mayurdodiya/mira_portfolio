@@ -99,7 +99,7 @@ const Index = () => {
             </div>
           </div>
         </div>
-      </navigation>
+      </motion.nav>
 
       {/* Main Content */}
       <main>
