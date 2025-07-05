@@ -55,7 +55,7 @@ const Moon = () => {
         <Sphere ref={moonRef} args={[0.4, 16, 16]}>
           <meshPhongMaterial
             color="#C0C0C0"
-            shininess={10
+            shininess={10}
           />
         </Sphere>
       </group>
@@ -104,7 +104,7 @@ const Saturn = () => {
       <Sphere ref={saturnRef} args={[2, 32, 32]}>
         <meshPhongMaterial
           color="#FAD5A5"
-          shininess={50
+          shininess={50}
         />
       </Sphere>
       <Ring ref={ringsRef} args={[2.5, 4, 32]}>
