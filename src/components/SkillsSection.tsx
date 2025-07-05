@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Code, Database, Globe, Server, Smartphone, Palette } from 'lucide-react';
