@@ -73,7 +73,7 @@ const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-              John Developer
+              Mira Developer
             </span>
           </motion.h1>
 
@@ -86,6 +86,7 @@ const HeroSection = () => {
           >
             <h2 className="text-2xl md:text-4xl font-light text-gray-300">
               Software IT Developer
+              {/* Php Developer */}
             </h2>
             <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
               Crafting digital experiences through innovative code and cosmic creativity. 

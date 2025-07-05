@@ -75,7 +75,7 @@ const Index = () => {
               className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent"
               whileHover={{ scale: 1.05 }}
             >
-              🚀 Cosmic Dev
+              🚀 Mira Gohil
             </motion.div>
             
             <div className="hidden md:flex items-center space-x-8">
