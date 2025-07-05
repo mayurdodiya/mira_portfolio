@@ -6,14 +6,15 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import HeroSection from '@/components/HeroSection';
-import ProjectsSection from '@/components/ProjectsSection';
 import MiniGamesSection from '@/components/MiniGamesSection';
 import CodePlayground from '@/components/CodePlayground';
 import SkillsSection from '@/components/SkillsSection';
 import AboutSection from '@/components/AboutSection';
 import ContactSection from '@/components/ContactSection';
 import FloatingParticles from '@/components/FloatingParticles';
-import CustomCursor from '@/components/CustomCursor';
+import GalaxyBackground from '@/components/GalaxyBackground';
+import SpaceshipCursor from '@/components/SpaceshipCursor';
+import FloatingProjectCards from '@/components/FloatingProjectCards';
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState('hero');
@@ -56,13 +57,14 @@ const Index = () => {
   };
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white overflow-x-hidden">
-      <CustomCursor />
+    <div className="relative min-h-screen text-white overflow-x-hidden">
+      <GalaxyBackground />
+      <SpaceshipCursor />
       <FloatingParticles />
       
       {/* Navigation */}
       <motion.nav 
-        className="fixed top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-lg border-b border-purple-500/20"
+        className="fixed top-0 left-0 right-0 z-50 bg-black/10 backdrop-blur-xl border-b border-cyan-500/20"
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
@@ -73,7 +75,7 @@ const Index = () => {
               className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent"
               whileHover={{ scale: 1.05 }}
             >
-              Portfolio
+              🚀 Cosmic Dev
             </motion.div>
             
             <div className="hidden md:flex items-center space-x-8">
@@ -81,7 +83,7 @@ const Index = () => {
                 <motion.button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`relative px-4 py-2 rounded-full transition-all duration-300 ${
+                  className={`relative px-4 py-2 rounded-full transition-all duration-300 interactive ${
                     activeSection === item.id
                       ? 'text-cyan-400 bg-cyan-400/10'
                       : 'text-gray-300 hover:text-cyan-400'
@@ -106,7 +108,9 @@ const Index = () => {
       {/* Main Content */}
       <main>
         <HeroSection />
-        <ProjectsSection />
+        <div id="projects">
+          <FloatingProjectCards />
+        </div>
         <MiniGamesSection />
         <CodePlayground />
         <SkillsSection />
@@ -114,24 +118,25 @@ const Index = () => {
         <ContactSection />
       </main>
 
-      {/* Shooting Stars */}
+      {/* Enhanced Shooting Stars */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        {[...Array(3)].map((_, i) => (
+        {[...Array(8)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-1 h-1 bg-white rounded-full"
-            initial={{ x: -10, y: Math.random() * window.innerHeight }}
+            className="absolute w-2 h-2 bg-gradient-to-r from-cyan-400 to-white rounded-full"
+            initial={{ x: -20, y: Math.random() * window.innerHeight }}
             animate={{
-              x: window.innerWidth + 10,
+              x: window.innerWidth + 20,
               y: Math.random() * window.innerHeight,
             }}
             transition={{
-              duration: Math.random() * 3 + 2,
+              duration: Math.random() * 4 + 3,
               repeat: Infinity,
-              delay: Math.random() * 5,
+              delay: Math.random() * 8,
+              ease: "linear"
             }}
             style={{
-              boxShadow: '0 0 6px #fff, 0 0 12px #fff, 0 0 18px #fff',
+              boxShadow: '0 0 12px #22d3ee, 0 0 24px #22d3ee, 0 0 36px #22d3ee',
             }}
           />
         ))}
