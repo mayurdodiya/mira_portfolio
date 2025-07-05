@@ -8,6 +8,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import HeroSection from '@/components/HeroSection';
 import ProjectsSection from '@/components/ProjectsSection';
 import MiniGamesSection from '@/components/MiniGamesSection';
+import CodePlayground from '@/components/CodePlayground';
 import SkillsSection from '@/components/SkillsSection';
 import AboutSection from '@/components/AboutSection';
 import ContactSection from '@/components/ContactSection';
@@ -19,7 +20,7 @@ const Index = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['hero', 'projects', 'games', 'skills', 'about', 'contact'];
+      const sections = ['hero', 'projects', 'games', 'playground', 'skills', 'about', 'contact'];
       const scrollPosition = window.scrollY + 100;
 
       sections.forEach((section) => {
@@ -41,6 +42,7 @@ const Index = () => {
     { id: 'hero', label: 'Home' },
     { id: 'projects', label: 'Projects' },
     { id: 'games', label: 'Games' },
+    { id: 'playground', label: 'Playground' },
     { id: 'skills', label: 'Skills' },
     { id: 'about', label: 'About' },
     { id: 'contact', label: 'Contact' }
@@ -106,6 +108,7 @@ const Index = () => {
         <HeroSection />
         <ProjectsSection />
         <MiniGamesSection />
+        <CodePlayground />
         <SkillsSection />
         <AboutSection />
         <ContactSection />

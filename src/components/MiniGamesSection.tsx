@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Play, GamepadIcon, Zap, Trophy } from 'lucide-react';
+import { Play, GamepadIcon, Zap, Trophy, Sparkles } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -57,7 +57,7 @@ const MiniGamesSection = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
           {games.map((game, index) => (
             <motion.div
               key={game.id}
@@ -113,26 +113,107 @@ const MiniGamesSection = () => {
           ))}
         </div>
 
-        {/* Interactive Pen Animation Section */}
+        {/* Interactive Animation Showcase */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
           viewport={{ once: true }}
-          className="mt-16 text-center"
+          className="text-center"
         >
-          <h3 className="text-3xl font-bold text-white mb-8">Interactive Playground</h3>
-          <div className="bg-gradient-to-br from-slate-800/50 to-purple-900/30 border border-purple-500/20 rounded-lg p-8 backdrop-blur-sm">
-            <iframe
-              src="https://codepen.io/cassie-codes/embed/YzKpOYa?default-tab=result&theme-id=dark"
-              style={{ width: '100%', height: '400px', border: 'none' }}
-              title="Interactive Animation Playground"
-              allowFullScreen
-            />
-            <p className="text-gray-400 mt-4">
-              Interact with this creative animation playground - try clicking and dragging!
-            </p>
+          <div className="flex items-center justify-center gap-4 mb-8">
+            <motion.div
+              animate={{ rotate: 360, scale: [1, 1.2, 1] }}
+              transition={{ 
+                rotate: { duration: 8, repeat: Infinity, ease: "linear" },
+                scale: { duration: 2, repeat: Infinity }
+              }}
+            >
+              <Sparkles className="text-yellow-400" size={32} />
+            </motion.div>
+            <h3 className="text-3xl font-bold text-white">Interactive Cosmic Animations</h3>
+            <motion.div
+              animate={{ rotate: -360, y: [0, -10, 0] }}
+              transition={{ 
+                rotate: { duration: 6, repeat: Infinity, ease: "linear" },
+                y: { duration: 3, repeat: Infinity }
+              }}
+            >
+              <Sparkles className="text-purple-400" size={32} />
+            </motion.div>
           </div>
+          
+          <div className="bg-gradient-to-br from-slate-800/50 to-purple-900/30 border border-purple-500/20 rounded-lg p-8 backdrop-blur-sm relative overflow-hidden">
+            {/* Cosmic Border Animation */}
+            <div className="absolute inset-0 rounded-lg">
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/0 via-cyan-400/50 to-cyan-400/0 animate-pulse" />
+            </div>
+            
+            <div className="relative z-10">
+              <iframe
+                src="https://codepen.io/cassie-codes/embed/YzKpOYa?default-tab=result&theme-id=dark"
+                style={{ 
+                  width: '100%', 
+                  height: '400px', 
+                  border: 'none',
+                  borderRadius: '8px',
+                  background: '#000'
+                }}
+                title="Interactive Cosmic Animation Playground"
+                allowFullScreen
+              />
+              <p className="text-gray-400 mt-4">
+                🚀 Interact with this creative animation playground - try clicking and dragging to discover cosmic magic!
+              </p>
+            </div>
+
+            {/* Floating Animation Particles */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+              {[...Array(8)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute w-2 h-2 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full"
+                  style={{
+                    left: `${Math.random() * 100}%`,
+                    top: `${Math.random() * 100}%`,
+                  }}
+                  animate={{
+                    y: [0, -30, 0],
+                    x: [0, 20, -20, 0],
+                    opacity: [0, 1, 0],
+                    scale: [0, 1, 0],
+                  }}
+                  transition={{
+                    duration: Math.random() * 6 + 4,
+                    repeat: Infinity,
+                    delay: Math.random() * 3,
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Background Elements */}
+      <div className="absolute top-10 left-10 text-green-400/10">
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+        >
+          <GamepadIcon size={80} />
+        </motion.div>
+      </div>
+      
+      <div className="absolute bottom-10 right-10 text-purple-400/10">
+        <motion.div
+          animate={{ rotate: -360, scale: [1, 1.3, 1] }}
+          transition={{ 
+            rotate: { duration: 15, repeat: Infinity, ease: "linear" },
+            scale: { duration: 4, repeat: Infinity }
+          }}
+        >
+          <Trophy size={60} />
         </motion.div>
       </div>
     </section>
