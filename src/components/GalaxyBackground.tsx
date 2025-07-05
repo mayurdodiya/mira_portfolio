@@ -1,7 +1,7 @@
 
 import React, { useRef, useMemo } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Sphere, Stars, useTexture, Torus, Ring } from '@react-three/drei';
+import { Sphere, Stars } from '@react-three/drei';
 import * as THREE from 'three';
 
 // Earth Component with realistic textures
@@ -85,7 +85,7 @@ const Mars = () => {
   );
 };
 
-// Saturn with Rings
+// Saturn with Rings - Fixed Ring component
 const Saturn = () => {
   const saturnRef = useRef<THREE.Mesh>(null);
   const ringsRef = useRef<THREE.Mesh>(null);
@@ -107,31 +107,33 @@ const Saturn = () => {
           shininess={50}
         />
       </Sphere>
-      <Ring ref={ringsRef} args={[2.5, 4, 32]}>
+      {/* Fixed Saturn rings using mesh instead of Ring */}
+      <mesh ref={ringsRef} rotation={[Math.PI / 2, 0, 0]}>
+        <ringGeometry args={[2.5, 4, 32]} />
         <meshBasicMaterial
           color="#DEB887"
           transparent
           opacity={0.6}
           side={THREE.DoubleSide}
         />
-      </Ring>
+      </mesh>
     </group>
   );
 };
 
-// Floating Asteroids
+// Simplified Asteroids with better performance
 const Asteroids = () => {
   const asteroids = useMemo(() => {
     const temp = [];
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 20; i++) { // Reduced from 50 to 20 for better performance
       temp.push({
         position: [
-          (Math.random() - 0.5) * 100,
-          (Math.random() - 0.5) * 50,
-          (Math.random() - 0.5) * 100
-        ],
-        scale: Math.random() * 0.3 + 0.1,
-        rotation: [Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI]
+          (Math.random() - 0.5) * 60,
+          (Math.random() - 0.5) * 30,
+          (Math.random() - 0.5) * 60
+        ] as [number, number, number],
+        scale: Math.random() * 0.2 + 0.1,
+        rotation: [Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI] as [number, number, number]
       });
     }
     return temp;
@@ -146,14 +148,19 @@ const Asteroids = () => {
   );
 };
 
-const AsteroidItem = ({ position, scale, rotation, index }: any) => {
+const AsteroidItem = ({ position, scale, rotation, index }: {
+  position: [number, number, number];
+  scale: number;
+  rotation: [number, number, number];
+  index: number;
+}) => {
   const ref = useRef<THREE.Mesh>(null);
   
   useFrame(({ clock }) => {
     if (ref.current) {
       ref.current.rotation.x = rotation[0] + clock.getElapsedTime() * 0.01 * (index % 3 + 1);
       ref.current.rotation.y = rotation[1] + clock.getElapsedTime() * 0.02 * (index % 2 + 1);
-      ref.current.position.z = position[2] + Math.sin(clock.getElapsedTime() * 0.1 + index) * 2;
+      ref.current.position.z = position[2] + Math.sin(clock.getElapsedTime() * 0.1 + index) * 1;
     }
   });
 
@@ -165,17 +172,17 @@ const AsteroidItem = ({ position, scale, rotation, index }: any) => {
   );
 };
 
-// Shooting Stars/Comets
+// Simplified Shooting Stars
 const ShootingStars = () => {
   const starsRef = useRef<THREE.Group>(null);
   
-  useFrame(({ clock }) => {
+  useFrame(() => {
     if (starsRef.current) {
       starsRef.current.children.forEach((star, index) => {
-        star.position.x -= 0.1 * (index % 3 + 1);
-        if (star.position.x < -50) {
-          star.position.x = 50;
-          star.position.y = (Math.random() - 0.5) * 50;
+        star.position.x -= 0.05 * (index % 3 + 1);
+        if (star.position.x < -30) {
+          star.position.x = 30;
+          star.position.y = (Math.random() - 0.5) * 20;
         }
       });
     }
@@ -183,9 +190,9 @@ const ShootingStars = () => {
 
   const comets = useMemo(() => {
     const temp = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 3; i++) { // Reduced from 5 to 3
       temp.push({
-        position: [Math.random() * 100 - 50, (Math.random() - 0.5) * 50, (Math.random() - 0.5) * 50],
+        position: [Math.random() * 50 - 25, (Math.random() - 0.5) * 20, (Math.random() - 0.5) * 30] as [number, number, number],
       });
     }
     return temp;
@@ -203,18 +210,18 @@ const ShootingStars = () => {
   );
 };
 
-// Nebula Clouds
+// Simplified Nebula
 const Nebula = () => {
   const nebulas = useMemo(() => {
     const temp = [];
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 5; i++) { // Reduced from 10 to 5
       temp.push({
         position: [
-          (Math.random() - 0.5) * 150,
-          (Math.random() - 0.5) * 100,
-          (Math.random() - 0.5) * 150
-        ],
-        scale: Math.random() * 5 + 2,
+          (Math.random() - 0.5) * 80,
+          (Math.random() - 0.5) * 50,
+          (Math.random() - 0.5) * 80
+        ] as [number, number, number],
+        scale: Math.random() * 3 + 1,
         color: `hsl(${240 + Math.random() * 60}, 70%, ${30 + Math.random() * 20}%)`
       });
     }
@@ -242,28 +249,28 @@ const GalaxyScene = () => {
   const { camera } = useThree();
   
   useFrame(({ mouse }) => {
-    camera.position.x = mouse.x * 2;
-    camera.position.y = mouse.y * 2;
+    camera.position.x = mouse.x * 1;
+    camera.position.y = mouse.y * 1;
     camera.lookAt(0, 0, 0);
   });
 
   return (
     <>
       {/* Ambient and directional lighting */}
-      <ambientLight intensity={0.2} />
+      <ambientLight intensity={0.3} />
       <directionalLight
         position={[10, 10, 5]}
-        intensity={1}
+        intensity={0.8}
         castShadow
       />
-      <pointLight position={[0, 0, 0]} intensity={0.5} color="#FFD700" />
+      <pointLight position={[0, 0, 0]} intensity={0.3} color="#FFD700" />
       
       {/* Starfield background */}
       <Stars
-        radius={300}
-        depth={100}
-        count={5000}
-        factor={10}
+        radius={200}
+        depth={50}
+        count={3000}
+        factor={8}
         saturation={0}
         fade
       />
@@ -287,6 +294,12 @@ const GalaxyBackground = () => {
       <Canvas
         camera={{ position: [0, 0, 10], fov: 60 }}
         style={{ background: 'radial-gradient(ellipse at center, #1a1a2e 0%, #16213e 50%, #0f0f23 100%)' }}
+        gl={{ 
+          antialias: true,
+          alpha: true,
+          preserveDrawingBuffer: true,
+          powerPreference: "high-performance"
+        }}
       >
         <GalaxyScene />
       </Canvas>
