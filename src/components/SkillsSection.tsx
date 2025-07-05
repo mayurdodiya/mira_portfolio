@@ -1,65 +1,69 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Code, Database, Globe, Server, Smartphone, Palette } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
 
 const SkillsSection = () => {
-  const skillCategories = [
+  const skills = [
     {
-      title: 'Frontend',
-      icon: <Globe size={32} />,
-      color: 'from-cyan-500 to-blue-500',
-      skills: [
-        { name: 'React', level: 95 },
-        { name: 'TypeScript', level: 90 },
-        { name: 'Next.js', level: 85 },
-        { name: 'Tailwind CSS', level: 92 }
-      ]
+      category: "Frontend",
+      icon: <Code size={32} />,
+      skills: ["React", "TypeScript", "Next.js", "Tailwind CSS", "Framer Motion"],
+      color: "from-cyan-500 to-blue-500"
     },
     {
-      title: 'Backend',
+      category: "Backend",
       icon: <Server size={32} />,
-      color: 'from-green-500 to-teal-500',
-      skills: [
-        { name: 'Node.js', level: 88 },
-        { name: 'Express', level: 85 },
-        { name: 'Python', level: 82 },
-        { name: 'GraphQL', level: 78 }
-      ]
+      skills: ["Node.js", "Express", "Python", "PostgreSQL", "MongoDB"],
+      color: "from-purple-500 to-indigo-500"
     },
     {
-      title: 'Database',
+      category: "Database",
       icon: <Database size={32} />,
-      color: 'from-purple-500 to-pink-500',
-      skills: [
-        { name: 'MongoDB', level: 90 },
-        { name: 'PostgreSQL', level: 85 },
-        { name: 'Redis', level: 75 },
-        { name: 'Firebase', level: 80 }
-      ]
+      skills: ["MySQL", "PostgreSQL", "MongoDB", "Redis", "Supabase"],
+      color: "from-green-500 to-teal-500"
     },
     {
-      title: 'Mobile',
+      category: "Web Technologies",
+      icon: <Globe size={32} />,
+      skills: ["REST APIs", "GraphQL", "WebSockets", "PWA", "SEO"],
+      color: "from-pink-500 to-rose-500"
+    },
+    {
+      category: "Mobile",
       icon: <Smartphone size={32} />,
-      color: 'from-orange-500 to-red-500',
-      skills: [
-        { name: 'React Native', level: 82 },
-        { name: 'Flutter', level: 75 },
-        { name: 'iOS', level: 70 },
-        { name: 'Android', level: 72 }
-      ]
+      skills: ["React Native", "Expo", "Flutter", "iOS", "Android"],
+      color: "from-orange-500 to-red-500"
+    },
+    {
+      category: "Design",
+      icon: <Palette size={32} />,
+      skills: ["Figma", "Adobe XD", "Photoshop", "UI/UX", "Prototyping"],
+      color: "from-yellow-500 to-orange-500"
     }
   ];
 
-  const technologies = [
-    { name: 'React', icon: '⚛️', delay: 0 },
-    { name: 'Node.js', icon: '🟢', delay: 0.2 },
-    { name: 'MongoDB', icon: '🍃', delay: 0.4 },
-    { name: 'TypeScript', icon: '🔷', delay: 0.6 },
-    { name: 'Next.js', icon: '▲', delay: 0.8 },
-    { name: 'Python', icon: '🐍', delay: 1.0 },
-    { name: 'Docker', icon: '🐋', delay: 1.2 },
-    { name: 'AWS', icon: '☁️', delay: 1.4 }
-  ];
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6
+      }
+    }
+  };
 
   return (
     <section id="skills" className="py-20 px-6 relative">
@@ -72,155 +76,112 @@ const SkillsSection = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent mb-6">
-            Animated Activities
+            My Skills
           </h2>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            Discover my cosmic arsenal of technologies and skills floating through the digital universe
+            Technologies and tools I use to bring ideas to life in the digital cosmos
           </p>
         </motion.div>
 
-        {/* Rotating Tech Icons */}
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 1 }}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true }}
-          className="relative mb-20"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          <div className="relative w-80 h-80 mx-auto">
+          {skills.map((skillGroup, index) => (
             <motion.div
-              className="absolute inset-0 border-2 border-purple-500/30 rounded-full"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-            />
-            <motion.div
-              className="absolute inset-8 border border-cyan-500/20 rounded-full"
-              animate={{ rotate: -360 }}
-              transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-            />
-            
-            {technologies.map((tech, index) => {
-              const angle = (index * 360) / technologies.length;
-              const radius = 120;
-              const x = Math.cos((angle - 90) * (Math.PI / 180)) * radius;
-              const y = Math.sin((angle - 90) * (Math.PI / 180)) * radius;
-              
-              return (
-                <motion.div
-                  key={tech.name}
-                  className="absolute w-16 h-16 bg-gradient-to-br from-slate-800 to-purple-900 rounded-full border border-purple-500/40 flex items-center justify-center cursor-pointer"
-                  style={{
-                    left: '50%',
-                    top: '50%',
-                    transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`
-                  }}
-                  initial={{ scale: 0, opacity: 0 }}
-                  whileInView={{ scale: 1, opacity: 1 }}
-                  transition={{ delay: tech.delay, duration: 0.5 }}
-                  whileHover={{ 
-                    scale: 1.2, 
-                    boxShadow: '0 0 20px rgba(168, 85, 247, 0.4)',
-                    transition: { duration: 0.2 }
-                  }}
-                  animate={{
-                    y: [0, -10, 0]
-                  }}
-                  transition={{
-                    y: { duration: 3, repeat: Infinity, ease: "easeInOut", delay: index * 0.2 }
-                  }}
-                >
-                  <span className="text-2xl">{tech.icon}</span>
-                  <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs text-gray-400 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
-                    {tech.name}
-                  </div>
-                </motion.div>
-              );
-            })}
-            
-            {/* Central Core */}
-            <motion.div
-              className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 bg-gradient-to-br from-cyan-500 to-purple-500 rounded-full flex items-center justify-center"
-              animate={{
-                scale: [1, 1.1, 1],
-                boxShadow: [
-                  '0 0 20px rgba(168, 85, 247, 0.3)',
-                  '0 0 40px rgba(168, 85, 247, 0.6)',
-                  '0 0 20px rgba(168, 85, 247, 0.3)'
-                ]
+              key={skillGroup.category}
+              variants={cardVariants}
+              whileHover={{ 
+                y: -10,
+                scale: 1.02,
+                transition: { duration: 0.3 }
               }}
-              transition={{ duration: 2, repeat: Infinity }}
+              className="group"
             >
-              <Code className="text-white" size={32} />
+              <Card className="bg-gradient-to-br from-slate-800/50 to-purple-900/30 border border-purple-500/20 overflow-hidden backdrop-blur-sm hover:border-cyan-400/40 transition-all duration-300 h-full">
+                <CardContent className="p-6">
+                  <motion.div
+                    className={`inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-r ${skillGroup.color} mb-6`}
+                    whileHover={{ rotate: 360 }}
+                    transition={{ duration: 0.6 }}
+                  >
+                    <div className="text-white">
+                      {skillGroup.icon}
+                    </div>
+                  </motion.div>
+                  
+                  <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-cyan-400 transition-colors">
+                    {skillGroup.category}
+                  </h3>
+                  
+                  <div className="space-y-3">
+                    {skillGroup.skills.map((skill, skillIndex) => (
+                      <motion.div
+                        key={skill}
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ delay: skillIndex * 0.1 }}
+                        className="flex items-center space-x-3"
+                      >
+                        <div className="w-2 h-2 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full" />
+                        <span className="text-gray-300 hover:text-cyan-400 transition-colors">
+                          {skill}
+                        </span>
+                      </motion.div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
             </motion.div>
-          </div>
+          ))}
         </motion.div>
 
-        {/* Skill Categories */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-          {skillCategories.map((category, categoryIndex) => (
+        {/* Floating skill particles */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {[...Array(20)].map((_, i) => (
             <motion.div
-              key={category.title}
-              initial={{ opacity: 0, x: categoryIndex % 2 === 0 ? -50 : 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: categoryIndex * 0.2 }}
-              viewport={{ once: true }}
-              className="bg-gradient-to-br from-slate-800/50 to-purple-900/30 border border-purple-500/20 rounded-lg p-6 backdrop-blur-sm hover:border-cyan-400/40 transition-all duration-300"
-            >
-              <div className="flex items-center mb-6">
-                <motion.div
-                  className={`w-12 h-12 rounded-full bg-gradient-to-r ${category.color} flex items-center justify-center mr-4`}
-                  whileHover={{ rotate: 360 }}
-                  transition={{ duration: 0.6 }}
-                >
-                  <div className="text-white">{category.icon}</div>
-                </motion.div>
-                <h3 className="text-2xl font-bold text-white">{category.title}</h3>
-              </div>
-
-              <div className="space-y-4">
-                {category.skills.map((skill, skillIndex) => (
-                  <div key={skill.name} className="space-y-2">
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-300">{skill.name}</span>
-                      <span className="text-cyan-400">{skill.level}%</span>
-                    </div>
-                    <div className="w-full bg-slate-700 rounded-full h-2">
-                      <motion.div
-                        className={`h-2 rounded-full bg-gradient-to-r ${category.color}`}
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${skill.level}%` }}
-                        transition={{ duration: 1, delay: skillIndex * 0.1 }}
-                        viewport={{ once: true }}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
+              key={i}
+              className="absolute w-1 h-1 bg-cyan-400/30 rounded-full"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+              animate={{
+                y: [0, -100, 0],
+                opacity: [0, 1, 0],
+                scale: [0, 1, 0],
+              }}
+              transition={{
+                duration: Math.random() * 10 + 5,
+                repeat: Infinity,
+                delay: Math.random() * 5,
+              }}
+            />
           ))}
         </div>
       </div>
 
-      {/* Floating Particles */}
-      {[...Array(20)].map((_, i) => (
+      {/* Background Elements */}
+      <div className="absolute top-10 left-10 text-purple-400/10">
         <motion.div
-          key={i}
-          className="absolute w-1 h-1 bg-cyan-400 rounded-full opacity-60"
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-          }}
-          animate={{
-            y: [0, -30, 0],
-            opacity: [0.6, 1, 0.6],
-          }}
-          transition={{
-            duration: Math.random() * 3 + 2,
-            repeat: Infinity,
-            delay: Math.random() * 2,
-          }}
-        />
-      ))}
+          animate={{ rotate: 360 }}
+          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+        >
+          <Code size={80} />
+        </motion.div>
+      </div>
+      
+      <div className="absolute bottom-10 right-10 text-cyan-400/10">
+        <motion.div
+          animate={{ rotate: -360 }}
+          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+        >
+          <Database size={60} />
+        </motion.div>
+      </div>
     </section>
   );
 };
