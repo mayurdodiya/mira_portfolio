@@ -124,11 +124,9 @@ const SkillsSection = () => {
                     transition: { duration: 0.2 }
                   }}
                   animate={{
-                    rotate: 360,
                     y: [0, -10, 0]
                   }}
                   transition={{
-                    rotate: { duration: 20, repeat: Infinity, ease: "linear" },
                     y: { duration: 3, repeat: Infinity, ease: "easeInOut", delay: index * 0.2 }
                   }}
                 >
